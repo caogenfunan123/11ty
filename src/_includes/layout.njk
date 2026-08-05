@@ -46,7 +46,7 @@
     {{ content | safe }}
   </main>
   <footer>
-    <p>&copy; {{ "now" | date: "%Y" }} {{ site.title }}</p>
+    <p>&copy; {{ "now" | date("yyyy") }} {{ site.title }}</p>
   </footer>
 </body>
 </html>
