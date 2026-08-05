@@ -1,0 +1,12 @@
+{
+  "name": "11ty-blog",
+  "version": "1.0.0",
+  "description": "使用 Eleventy 搭建的静态博客",
+  "scripts": {
+    "build": "eleventy",
+    "serve": "eleventy --serve"
+  },
+  "devDependencies": {
+    "@11ty/eleventy": "^2.0.1"
+  }
+}
