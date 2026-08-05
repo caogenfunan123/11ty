@@ -1,5 +1,7 @@
 module.exports = function (eleventyConfig) {
-  // 添加 date 过滤器（Nunjucks 兼容）
+  // 添加 date 过滤器（兼容 Liquid 和 Nunjucks）
+  // Liquid 语法: {{ date | date: "%Y-%m-%d" }}
+  // Nunjucks 语法: {{ date | date("yyyy-MM-dd") }}
   eleventyConfig.addFilter("date", function (dateObj, format) {
     let date;
     if (dateObj === "now" || !dateObj) {
@@ -9,12 +11,42 @@ module.exports = function (eleventyConfig) {
     } else {
       date = new Date(dateObj);
     }
-    // 支持 yyyy 格式
+
+    // Nunjucks 风格格式: yyyy MM dd
     if (format === "yyyy") {
       return date.getFullYear().toString();
     }
-    // 默认返回完整日期
+    if (format === "yyyy-MM-dd") {
+      return date.toISOString().split("T")[0];
+    }
+
+    // Liquid 风格格式: %Y-%m-%d
+    if (format && format.includes("%")) {
+      const map = {
+        "%Y": date.getFullYear(),
+        "%m": String(date.getMonth() + 1).padStart(2, "0"),
+        "%d": String(date.getDate()).padStart(2, "0"),
+        "%H": String(date.getHours()).padStart(2, "0"),
+        "%M": String(date.getMinutes()).padStart(2, "0"),
+        "%S": String(date.getSeconds()).padStart(2, "0"),
+      };
+      let result = format;
+      for (const [token, val] of Object.entries(map)) {
+        result = result.replace(token, val);
+      }
+      return result;
+    }
+
+    // 默认返回 ISO 日期
     return date.toISOString().split("T")[0];
+  });
+
+  // 显式创建 posts 集合：从 src/posts/ 目录收集所有 Markdown 文章
+  // 按日期降序排列（最新的在前）
+  eleventyConfig.addCollection("post", function (collectionApi) {
+    return collectionApi.getFilteredByGlob("src/posts/*.md").sort(function (a, b) {
+      return b.data.date - a.data.date;
+    });
   });
 
   // 设置输入和输出目录
