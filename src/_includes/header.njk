@@ -1,0 +1,16 @@
+<header class="header">
+  <div class="logo">
+    <a href="/" class="go-home">
+      {{ site.title }}
+    </a>
+  </div>
+  <nav>
+    <ul class="nav">
+      {% for item in site.menu %}
+      <li>
+        <a href="{{ item.url }}">{{ item.name }}</a>
+      </li>
+      {% endfor %}
+    </ul>
+  </nav>
+</header>
