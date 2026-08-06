@@ -1,0 +1,27 @@
+---
+layout: layout.njk
+---
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% if title %}{{ title }} - {% endif %}{{ site.title }}</title>
+  <meta name="description" content="{{ description or site.description }}">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <div class="paper">
+    <main class="paper-main">
+      {{ content | safe }}
+    </main>
+    <footer class="footer">
+      <div class="footer-last">
+        <span>{{ site.footer }}</span>
+        <span class="footer-last-span-right">© {{ year }} {{ site.title }}</span>
+      </div>
+    </footer>
+  </div>
+  <script src="/js/script.js"></script>
+</body>
+</html>
