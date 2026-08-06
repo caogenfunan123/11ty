@@ -1,0 +1,42 @@
+---
+layout: layout.njk
+title: "{{ title }}"
+date: {{ date }}
+lastUpdated: {{ lastUpdated or date }}
+---
+
+{% include "header.njk" %}
+
+<div class="post-main">
+  <h1 class="post-main-title">{{ title }}</h1>
+  <div class="post-head-meta-center">
+    <span>{{ date | date("YYYY-MM-DD") }}</span>
+    {% if lastUpdated and lastUpdated != date %}
+    <span> · 最后更新于 {{ lastUpdated | date("YYYY-MM-DD") }}</span>
+    {% endif %}
+    {% if wordCount %}
+    <span> · {{ content | wordCount }} 字</span>
+    {% endif %}
+  </div>
+</div>
+
+<div class="post-content">
+  {{ content | safe }}
+</div>
+
+{% if prevAndNextLink %}
+<div class="post-footer-pre-next">
+  {% if previous %}
+  <div class="post-footer-pre-next-last-span-right">
+    <a href="{{ previous.url }}">{{ site.post.prevInfo }}：{{ previous.data.title }}</a>
+  </div>
+  {% endif %}
+  {% if next %}
+  <div>
+    <a href="{{ next.url }}">{{ site.post.nextInfo }}：{{ next.data.title }}</a>
+  </div>
+  {% endif %}
+</div>
+{% endif %}
+
+{% include "footer.njk" %}
