@@ -1,5 +1,6 @@
 ---
 layout: layout.njk
+permalink: false
 ---
 
 # {{ site.title }}

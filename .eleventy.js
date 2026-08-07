@@ -41,6 +41,12 @@ module.exports = function (eleventyConfig) {
     return date.toISOString().split("T")[0];
   });
 
+  // 去除 HTML 标签（用于文章摘要）
+  eleventyConfig.addFilter("stripHtml", function (value) {
+    if (value === null || value === undefined) return "";
+    return String(value).replace(/<[^>]*>/g, "").replace(/\s+/g, " ").trim();
+  });
+
   // 显式创建 posts 集合：从 src/posts/ 目录收集所有 Markdown 文章
   // 按日期降序排列（最新的在前）
   eleventyConfig.addCollection("post", function (collectionApi) {
