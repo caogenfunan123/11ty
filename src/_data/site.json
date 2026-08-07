@@ -1,4 +1,5 @@
 {
   "title": "11ty 博客",
-  "description": "使用 Eleventy 搭建的静态博客"
+  "description": "使用 Eleventy 搭建的静态博客",
+  "showInMenu": true
 }
